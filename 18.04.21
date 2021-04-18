@@ -1,0 +1,179 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork
+{
+    class Program
+    {
+        static uint Size()
+        {
+            Console.WriteLine("Введи какое колличество ячеек необходимо выделить для массива");
+            for (; ;)
+            {
+                uint size = 0;
+                string vvod = Console.ReadLine();
+                if (UInt32.TryParse(vvod, out size))
+                {
+                    return size;
+                }
+                else
+                {
+                    Console.WriteLine("Вы ввели нечисловое значение или отрицательное! Повторите ввод");
+                }
+            }
+        }
+        static void Resize (ref int[] array)
+        {
+            Console.WriteLine("\nИзменяем размер массива! Введите числовое неотрицательное значение");
+            string vvod = Console.ReadLine();
+            uint size;
+            for (; ; )
+            {
+                if (UInt32.TryParse(vvod, out size))
+                {
+                    array = new int[size];
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Вы ввели нечисловое значение или отрицательное! Повторите ввод");
+                }
+            }
+        }
+        static void ReFirst(int[] array)
+        {
+            Console.WriteLine("Изменяем Первое число массива введите желаемое число");
+            string vvod = Console.ReadLine();
+            int chislo;
+            for (; ; )
+            {
+                if (Int32.TryParse(vvod, out chislo))
+                {
+                    array[0] = chislo;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Вы ввели нечисловое значение! Повторите ввод");
+                }
+            }
+        }
+        static void ReLast(int[] array)
+        {
+            Console.WriteLine("Изменяем Последнее число массива введите желаемое число");
+            string vvod = Console.ReadLine();
+            int chislo;
+            for (; ; )
+            {
+                if (Int32.TryParse(vvod, out chislo))
+                {
+                    array[array.Length - 1] = chislo;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Вы ввели нечисловое значение! Повторите ввод");
+                }
+            }
+        }
+        static void ReIndex(int[] array)
+        {
+            Console.WriteLine("Изменяем Выбраное число массива введите желаемое число. В массиве всего " + (array.Length - 1) + " Чисел. Введенное число не может быть больше представленного и меньше нуля ");
+            int yacheika;
+            for (; ; )
+            {
+                string vvod = Console.ReadLine();
+                if (Int32.TryParse(vvod, out yacheika))
+                {
+                    if (yacheika >= array[array.Length -1 ])
+                    {
+                        Console.WriteLine("Введенное число вы.ходит за пределы массива повторите ввод");
+                        continue;
+                    }
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Вы ввели нечисловое значение! Повторите ввод");
+                }
+            }
+            Console.WriteLine("Какое число поместить по указанному индексу " + yacheika);
+            string vvod2 = Console.ReadLine();
+            int chislo;
+            for (; ; )
+            {
+                if (Int32.TryParse(vvod2, out chislo))
+                {
+                    array[yacheika] = chislo;
+                    Console.WriteLine("Вы изменили число в ячейке " + yacheika + " на " + chislo);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Вы ввели нечисловое значение! Повторите ввод");
+                }
+            }
+        }
+        static void ZeroFirst(int[] array)
+        {
+            array[0] = 0;
+        }
+        static void ZeroLast(int[] array)
+        {
+            array[array.Length -1] = 0;
+        }
+        static void ZeroVvod(int[] array)
+        {
+            uint chislo;
+            Console.WriteLine("\t\t\tПроцедура удаления элемента массива");
+            Console.WriteLine("Введите неотрицательное число не превышающее длину массива если длина массива равна " + (array.Length - 1));
+            for (; ; )
+            {
+                string vvod = Console.ReadLine();
+                if (UInt32.TryParse(vvod, out chislo))
+                {
+                    if (chislo >= array.Length)
+                    {
+                        Console.WriteLine("Введено число выходящее за пределы массива. Повторите ввод");
+                        continue;
+                    }
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Введено нечисловое значение повторите ввод!");
+                }
+
+            }
+            Console.WriteLine("Удаляем эллемент массива под номером - " + chislo + " До удаления элемент равен " + array[chislo]);
+            array[chislo] = 0;
+            Console.WriteLine("После удаления элемент равен " + array[chislo]);
+        }
+        static void Main(string[] args)
+        {
+            int[] mass = new int[Size()];
+            Console.WriteLine("Создан массив на " + mass.Length + " Элементов");
+            Resize(ref mass);
+            Console.WriteLine("Массив изменен на колличество элементов = " + mass.Length);
+            Console.WriteLine("\nПервый эллемент массива " + mass[0]);
+            ReFirst(mass);
+            Console.WriteLine("Теперь Первый эллемент массива " + mass[0]);
+            Console.WriteLine("\nПоследний эллемент массива " + mass[mass.Length - 1]);
+            ReLast(mass);
+            Console.WriteLine("Теперь Последний эллемент массива " + mass[mass.Length - 1]);
+            Console.WriteLine("\nИзменяем выбранное число по индексу на введеное");
+            ReIndex(mass);
+            Console.WriteLine("\nУдаляем эллемент массива под индексом 0 до удаления он равен " + mass[0]);
+            ZeroFirst(mass);
+            Console.WriteLine("\nПосле удаления элемент массива по номером 0 равен " + mass[0]);
+            Console.WriteLine("\nУдаляем последний эллемент массива до удаления он равен " + mass[mass.Length -1]);
+            ZeroLast(mass);
+            Console.WriteLine("\nПосле удаления он равен " + mass[mass.Length -1]);
+            Console.WriteLine("\nУдаляем выбранный эллемент массива");
+            ZeroVvod(mass);
+        }
+    }
+}
